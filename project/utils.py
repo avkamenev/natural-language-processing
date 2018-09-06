@@ -5,6 +5,8 @@ import numpy as np
 
 nltk.download('stopwords')
 from nltk.corpus import stopwords
+from gensim.test.utils import datapath
+from gensim.models import KeyedVectors
 
 # Paths for all resources for the bot.
 RESOURCE_PATH = {
@@ -50,7 +52,10 @@ def load_embeddings(embeddings_path):
     #### YOUR CODE HERE ####
     ########################
 
-        pass 
+    wv_embeddings = KeyedVectors.load_word2vec_format(datapath(embeddings_path), binary=True)
+
+    return wv_embeddings, len(wv_embeddings.values()[0])
+
 
 def question_to_vec(question, embeddings, dim):
     """Transforms a string to an embedding by averaging word embeddings."""
@@ -60,8 +65,17 @@ def question_to_vec(question, embeddings, dim):
     ########################
     #### YOUR CODE HERE ####
     ########################
+    vectors = np.zeros((1, dim))
+    n=0
+    for i,token in enumerate(question.split()):
+        if token in embeddings:
+            vectors += embeddings[token]
+            n+=1
 
-        pass
+    if n==0: n=1
+            
+    return vectors/n
+
 
 
 def unpickle_file(filename):
