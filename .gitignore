@@ -102,3 +102,8 @@ ENV/
 
 # Data for assignments
 data/
+project/db.sqlite3
+project/.vscode/settings.json
+project/thread_embeddings_by_tags
+.DS_Store
+project/*.pkl

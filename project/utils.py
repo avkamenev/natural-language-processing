@@ -5,8 +5,6 @@ import numpy as np
 
 nltk.download('stopwords')
 from nltk.corpus import stopwords
-from gensim.test.utils import datapath
-from gensim.models import KeyedVectors
 
 # Paths for all resources for the bot.
 RESOURCE_PATH = {
