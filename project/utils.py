@@ -51,10 +51,15 @@ def load_embeddings(embeddings_path):
     ########################
     #### YOUR CODE HERE ####
     ########################
+    
+    embeddings = {}
+    for line in open(embeddings_path):
+        tokens = line.strip().split('\t')
+        embeddings[tokens[0]] = np.array(tokens[1:]).astype(np.float)
 
-    wv_embeddings = KeyedVectors.load_word2vec_format(datapath(embeddings_path), binary=True)
-
-    return wv_embeddings, len(wv_embeddings.values()[0])
+    embeddings_dim = len(next(iter(embeddings.values())))
+    
+    return embeddings, embeddings_dim
 
 
 def question_to_vec(question, embeddings, dim):
